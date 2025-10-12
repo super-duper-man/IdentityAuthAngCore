@@ -9,6 +9,8 @@ import {
 } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { FirstKeyPipe } from '../../shared/pipes/first-key.pipe';
+import { AuthService } from '../../shared/services/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-registration',
@@ -20,7 +22,11 @@ export class RegistrationComponent {
   form: FormGroup;
   isSubmitted: boolean = false;
 
-  constructor(public formBuilder: FormBuilder) {
+  constructor(
+    public formBuilder: FormBuilder,
+    private authService: AuthService,
+    private toastr: ToastrService
+  ) {
     this.form = this.formBuilder.group(
       {
         fullName: ['', Validators.required],
@@ -51,7 +57,21 @@ export class RegistrationComponent {
 
   onSubmit() {
     this.isSubmitted = true;
-    console.log(this.form.value);
+    if (this.form.valid) {
+      this.authService.createUser(this.form.value).subscribe({
+        next: (res: any) => {
+          if (res.succeeded) {
+            this.form.reset();
+            this.isSubmitted = false;
+            this.toastr.success('حساب کاربری ایجاد گردید.', 'ثبت نام');
+          }
+          console.log(res);
+        },
+        error: (err) => {
+          console.log('error', err);
+        },
+      });
+    }
   }
 
   hasDisplayError(controlName: string): Boolean {
