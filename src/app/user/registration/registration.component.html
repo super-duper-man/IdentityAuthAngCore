@@ -1,0 +1,39 @@
+<div class="mb-4 h2 text-success" dir="rtl">
+    ایجاد حساب کاربری
+</div>
+<form [formGroup]="form" dir="rtl" (ngSubmit)="onSubmit()">
+  <div class="mb-3">
+    <input
+      class="form-control bg-body-secondary"
+      placeholder="نام کامل"
+      formControlName="fullName"
+    />
+  </div>
+  <div class="mb-3">
+    <input
+      class="form-control bg-body-secondary"
+      placeholder="ایمیل"
+      formControlName="email"
+    />
+  </div>
+
+  <div class="mb-3">
+    <input
+      class="form-control bg-body-secondary"
+      placeholder="رمز عبور"
+      formControlName="password"
+    />
+  </div>
+
+  <div class="mb-3">
+    <input
+      class="form-control bg-body-secondary"
+      placeholder="تایید رمز عبور"
+      formControlName="confirmPassword"
+    />
+  </div>
+
+  <div class="mt-4">
+    <button type="submit" class="btn btn-success w-100 rounded-3">ثبت نام</button>
+  </div>
+</form>
