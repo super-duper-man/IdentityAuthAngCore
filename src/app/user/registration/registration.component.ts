@@ -65,10 +65,18 @@ export class RegistrationComponent {
             this.isSubmitted = false;
             this.toastr.success('حساب کاربری ایجاد گردید.', 'ثبت نام');
           }
-          console.log(res);
         },
-        error: (err) => {
-          console.log('error', err);
+        error: (errorResponse: any) => {
+          errorResponse.error.errors.forEach((item: any) => {
+            switch (item.code) {
+              case 'DuplicateEmail':
+                this.toastr.error('ایمیل وارد شده تکراری است');
+                break;
+              default:
+                this.toastr.error('در ارتباط با سرور مشکلی پیش آمده است');
+                break;
+            }
+          });
         },
       });
     }
@@ -79,7 +87,7 @@ export class RegistrationComponent {
 
     return (
       Boolean(control?.invalid) &&
-      (this.isSubmitted || Boolean(control?.touched))
+      (this.isSubmitted || Boolean(control?.touched) || Boolean(control?.dirty))
     );
   }
 }

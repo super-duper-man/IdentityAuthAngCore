@@ -15,6 +15,7 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     provideToastr({
      toastClass: 'ngx-toastr toast-dir',
+     positionClass: 'toast-bottom-left'
     })
   ],
 };
