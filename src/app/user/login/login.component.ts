@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../shared/services/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +18,11 @@ export class LoginComponent {
     password: ['', [Validators.required]],
   });
 
-    hasDisplayError(controlName: string): Boolean {
+  private authService = inject(AuthService);
+  private router = inject(Router);
+  private toast = inject(ToastrService);
+
+  hasDisplayError(controlName: string): Boolean {
     const control = this.form.get(controlName);
 
     return (
@@ -27,6 +33,21 @@ export class LoginComponent {
 
   onSubmit() {
     this.isSubmitted = true;
-    console.log(this.form.value)
+    if (this.form.valid) {
+      this.authService.signin(this.form.value).subscribe({
+        next: (res: any) => {
+          localStorage.setItem('token', res.token);
+          this.isSubmitted = false;
+          this.router.navigateByUrl('/dashboard');
+        },
+        error: (err) => {
+          if (err.status === 400) {
+            this.toast.error(err.error.message, 'خطا در ورود');
+          } else {
+            console.error(err);
+          }
+        },
+      });
+    }
   }
 }
