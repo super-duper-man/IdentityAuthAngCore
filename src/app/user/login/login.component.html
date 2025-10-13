@@ -1,10 +1,10 @@
 <div class="mb-4" dir="rtl">
-  <h2 class="text-success">ورود به حساب کاربری</h2>
+  <h4 class="text-success">ورود به حساب کاربری</h4>
   <div>حساب کاربری ندارید؟
     <a routerLink="/signup" class="text-decoration-none fw-medium text-success d-inline-block">ثبت نام</a>
   </div>
 </div>
-<form [formGroup]="form" dir="rtl">
+<form [formGroup]="form" dir="rtl" (ngSubmit)="onSubmit()">
   <div class="mb-3">
     <input
       class="form-control bg-body-secondary"

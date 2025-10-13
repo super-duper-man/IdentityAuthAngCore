@@ -24,4 +24,9 @@ export class LoginComponent {
       (this.isSubmitted || Boolean(control?.touched) || Boolean(control?.dirty))
     );
   }
+
+  onSubmit() {
+    this.isSubmitted = true;
+    console.log(this.form.value)
+  }
 }
