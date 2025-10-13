@@ -1,4 +1,9 @@
-<div class="mb-4 h2 text-success" dir="rtl">ایجاد حساب کاربری</div>
+<div class="mb-4" dir="rtl">
+  <h2 class="text-success">ایجاد حساب کاربری</h2>
+  <div>حساب کاربری دارید؟
+    <a routerLink="/signin" class="text-decoration-none fw-medium text-success d-inline-block">وارد شوید</a>
+  </div>
+</div>
 <form [formGroup]="form" dir="rtl" (ngSubmit)="onSubmit()">
   <div class="mb-3">
     <input
@@ -66,7 +71,11 @@
   </div>
 
   <div class="mt-4">
-    <button type="submit" class="btn btn-success w-100 rounded-3" [disabled]="form.invalid">
+    <button
+      type="submit"
+      class="btn btn-success w-100 rounded-3"
+      [disabled]="form.invalid"
+    >
       ثبت نام
     </button>
   </div>

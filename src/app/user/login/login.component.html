@@ -1,0 +1,48 @@
+<div class="mb-4" dir="rtl">
+  <h2 class="text-success">ورود به حساب کاربری</h2>
+  <div>حساب کاربری ندارید؟
+    <a routerLink="/signup" class="text-decoration-none fw-medium text-success d-inline-block">ثبت نام</a>
+  </div>
+</div>
+<form [formGroup]="form" dir="rtl">
+  <div class="mb-3">
+    <input
+      class="form-control bg-body-secondary"
+      placeholder="نام کاربری"
+      formControlName="email"
+    />
+    <div
+      *ngIf="
+        hasDisplayError('email') && form.controls['email'].hasError('required')
+      "
+      class="error-feedback"
+    >
+      نام کاربری را وارد نشده است
+    </div>
+  </div>
+  <div class="mb-3">
+    <input
+      class="form-control bg-body-secondary"
+      placeholder="رمز عبور"
+      formControlName="password"
+    />
+    <div
+      *ngIf="
+        hasDisplayError('password') &&
+        form.controls['password'].hasError('required')
+      "
+      class="error-feedback"
+    >
+      رمز عبور را وارد نشده است
+    </div>
+  </div>
+  <div class="mt-4">
+    <button
+      type="submit"
+      class="btn btn-success w-100 rounded-3"
+      [disabled]="form.invalid"
+    >
+      ورود
+    </button>
+  </div>
+</form>
