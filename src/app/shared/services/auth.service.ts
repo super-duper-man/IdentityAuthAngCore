@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { TOKEN_KEY } from '../constants';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,14 @@ export class AuthService {
   }
 
   isLoggedIn() {
-    return Boolean(localStorage.getItem('token'));
+    return Boolean(localStorage.getItem(TOKEN_KEY));
+  }
+
+  saveToken(token: string) {
+    localStorage.setItem(TOKEN_KEY, token);
+  }
+
+  deleteToken() {
+    localStorage.removeItem(TOKEN_KEY);
   }
 }

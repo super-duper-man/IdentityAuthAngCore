@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -11,7 +11,7 @@ import { FormGroup } from '@angular/forms';
 import { FirstKeyPipe } from '../../shared/pipes/first-key.pipe';
 import { AuthService } from '../../shared/services/auth.service';
 import { ToastrService } from 'ngx-toastr';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-registration',
@@ -19,9 +19,10 @@ import { RouterLink } from '@angular/router';
   templateUrl: './registration.component.html',
   styleUrl: './registration.component.scss',
 })
-export class RegistrationComponent {
+export class RegistrationComponent implements OnInit {
   form: FormGroup;
   isSubmitted: boolean = false;
+  private router = inject(Router);
 
   constructor(
     public formBuilder: FormBuilder,
@@ -37,6 +38,12 @@ export class RegistrationComponent {
       },
       { validators: this.passwordMatchValidator }
     );
+  }
+
+  ngOnInit(): void {
+    if(this.authService.isLoggedIn()){
+      this.router.navigateByUrl('/dashboard');
+    }
   }
 
   passwordMatchValidator: ValidatorFn = (control: AbstractControl): null => {
