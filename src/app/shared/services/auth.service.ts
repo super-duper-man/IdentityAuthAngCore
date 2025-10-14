@@ -25,6 +25,10 @@ export class AuthService {
     localStorage.setItem(TOKEN_KEY, token);
   }
 
+  getToken() {
+    return localStorage.getItem(TOKEN_KEY);
+  }
+
   deleteToken() {
     localStorage.removeItem(TOKEN_KEY);
   }
