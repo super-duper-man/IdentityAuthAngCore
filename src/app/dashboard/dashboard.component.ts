@@ -1,7 +1,4 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { TOKEN_KEY } from '../shared/constants';
-import { AuthService } from '../shared/services/auth.service';
 import { UserService } from '../shared/services/user.service';
 
 @Component({
@@ -11,8 +8,6 @@ import { UserService } from '../shared/services/user.service';
   styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent implements OnInit {
-  private router = inject(Router);
-  private authService = inject(AuthService);
   private userService = inject(UserService);
   fullName: string = '';
 
@@ -23,10 +18,5 @@ export class DashboardComponent implements OnInit {
       },
       error: (err) => console.log(err)
     })
-  }
-
-  logout() {
-    this.authService.deleteToken();
-    this.router.navigateByUrl('/');
   }
 }
