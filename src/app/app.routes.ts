@@ -11,6 +11,7 @@ import { ApplyForMaternityLeaveComponent } from './authorizeDemo/apply-for-mater
 import { LibraryMemersOnlyComponent } from './authorizeDemo/library-memers-only/library-memers-only.component';
 import { Under10AndFemaleComponent } from './authorizeDemo/under10-and-female/under10-and-female.component';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
+import { claimReq } from './shared/utils/calimReq-utils';
 
 export const routes: Routes = [
   {
@@ -35,12 +36,12 @@ export const routes: Routes = [
       {
         path: 'admin-only',
         component: AdminOnlyComponent,
-        data:{ claimReq: (c:any) => c.role === 'Admin'}
+        data:{ claimReq: claimReq.adminOnly}
       },
       {
         path: 'admin-or-teacher',
         component: AdminOrTeacherComponent,
-        data:{ claimReq: (c:any) => c.role === 'Admin' || c.role === 'Teacher'}
+        data:{ claimReq: claimReq.adminOrTeacher}
       },
       {
         path: 'apply-for-maternity-leave',
